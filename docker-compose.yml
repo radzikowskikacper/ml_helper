@@ -1,0 +1,40 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: mlhelper
+      POSTGRES_PASSWORD: docker
+    ports:
+      - "5432:5432"
+#     volumes:
+#       - ./mlhelper_database:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    links:
+      - "db:database"
+    depends_on:
+      - db
+    environment:
+      POSTGRES_URL: db:5432
+      POSTGRES_USER: mlhelper
+      POSTGRES_PW: docker
+      POSTGRES_DB: mlhelper
+    ports:
+      - "5000:5000"
+
+#   redis:
+#     image: "redis:alpine"
+
+#   celery:
+#     build: .
+#     command: celery -A mlhelper worker -l info
+#     depends_on:
+#       - db
+#       - redis
+#     links:
+#       - "db:database"
+
+# volumes:
+#   mlhelper_database:

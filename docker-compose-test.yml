@@ -1,0 +1,7 @@
+version: '3'
+services:
+  tests:
+    build: .
+    links:
+      - "db:database"
+    command: ["./wait_for_postgres.sh", "db", "pytest"]
