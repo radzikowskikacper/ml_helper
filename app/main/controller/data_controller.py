@@ -32,12 +32,12 @@ class Data(Resource):
         return []
 
 
-@api.route('/data/<string:url>/images/<int:id>', endpoint='images')
+@api.route('/data/<string:url>/images/<int:imgid>', endpoint='images')
 class Image(Resource):
     """Resource returning info about a task
     """
 
-    def get(self, url: str, id: int):
+    def get(self, url: str, imgid: int):
         """Return the information about given image
         """
 

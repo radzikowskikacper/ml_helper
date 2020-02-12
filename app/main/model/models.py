@@ -16,6 +16,7 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     type = db.Column(db.Integer, nullable=False)
     url = db.Column(db.String(512), nullable=False)
+    status = db.Column(db.Boolean, nullable=False)
 
 
 class Image(db.Model):
