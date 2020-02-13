@@ -23,11 +23,11 @@ class Tasks(Resource):
         """
         return jsonify(tasks())
 
-    def post(self) -> []:
+    def post(self):
         """Accepting tasks orders
         """
         params = request.args.get('params')
-        return new_task(params['url'], params['type'])
+        new_task(params['url'], params['type'])
 
 
 @api.route('/tasks/<string:url>/<string:tasktype>', endpoint='task status')

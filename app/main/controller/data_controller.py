@@ -4,7 +4,10 @@
 Controller with data endpoints
 """
 
+from flask import jsonify
 from flask_restplus import Resource, Namespace
+
+from app.main.service.data_service import image, images, text, websites
 
 
 api = Namespace('data', description='Resources for handling data endpoints')
@@ -18,7 +21,7 @@ class Websites(Resource):
     def get(self):
         """Info about browsed websites
         """
-        return []
+        return jsonify(websites())
 
 
 @api.route('/data/<string:url>/<string:resourcetype>', endpoint='data')
@@ -29,7 +32,11 @@ class Data(Resource):
     def get(self, url: str, resourcetype: str):
         """Info about collected data
         """
-        return []
+        if resourcetype == 'text':
+            return text(url)
+        else:
+            result = images(url)
+        return jsonify(result)
 
 
 @api.route('/data/<string:url>/images/<int:imgid>', endpoint='images')
@@ -40,5 +47,4 @@ class Image(Resource):
     def get(self, url: str, imgid: int):
         """Return the information about given image
         """
-
-        return {}
+        return jsonify(image(url, imgid))
