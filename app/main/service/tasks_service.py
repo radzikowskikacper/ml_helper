@@ -8,6 +8,7 @@ from typing import Dict, List
 
 from app.database import db
 from app.main.model.models import Task
+from app.main.service.scrapper import scrap_images, scrap_text
 
 
 def new_task(url: str, tasktype: str):
@@ -16,6 +17,10 @@ def new_task(url: str, tasktype: str):
     task_ = Task(type=tasktype, url=url, status=True)
     db.session.add(task_)
     db.session.commit()
+    if tasktype == 'text':
+        scrap_text.delay(url)
+    else:
+        scrap_images.delay(url)
 
 
 def tasks() -> List[str]:

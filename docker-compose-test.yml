@@ -4,4 +4,6 @@ services:
     build: .
     links:
       - "db:database"
+    depends_on:
+      - redis
     command: ["./wait_for_postgres.sh", "db", "pytest"]
